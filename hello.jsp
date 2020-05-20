@@ -28,14 +28,27 @@
 	 <!-- 반복문, 조건문으 이용하여 구구단을 홀수단 (3, 5, 7, 9)만
 	 브라우저에 출려해 보세요. -->
 	 
-	<%for (int a = 2; a <= 9; a++) {
+	<%--for (int a = 2; a <= 9; a++) {
 		if(a % 2 != 0){
 			out.print("<h2> 구구단" + a + "단</h2><hr>" );
 			for(int b = 1; b <= 9; b++){
 				out.print(a + " X "+ b + " = " + (a*b) + "<br>");
 			}
 		}
-	}%>
+	}--%>
+	
+	<%for(int dan = 2; dan <= 9; dan++){
+		if(dan%2 == 1) {%>
+		<h2>구구단<%= dan %></h2><hr>
+		
+			<%for(int hang=1;hang<=9; hang ++) {%>
+				<%=dan%> X <%=hang %> = <%= dan*hang %><br>
+				<% } %>
+			<%}	 %>
+		<%}%>
+	}
+	
+	
 	
 </body>
 </html>
