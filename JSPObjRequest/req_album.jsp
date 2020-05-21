@@ -7,28 +7,32 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
 	<table border="1">
-		<tr>
+		<tr align=center>
 			<td></td>
-			<td><img src ="a.jpg"/></td>
+			<td>앨범 커버</td>
 			<td>가수</td>
 			<td>앨범 제목</td>
 			<td>발매일</td>
 		</tr>
-		<tr>
-			<td></td>
-			<td>앨범 커버</td>
-			<td>Weeknd</td>
+		<tr align=center>
+			<td> <input type = "radio" name="option" value = "option1"/></td>
+			<td><img src="C:\Users\utdhk\eclipse-workspace\BasicJSP\WebContent\Workspace\img\a.jpg" height ="100px" width = "100px"></td>
+			<td>The Weeknd</td>
 			<td>Starboy</td>
-			<td>xxxx.xx.xx</td>
+			<td>2016.11.25</td>
 		</tr>
-		<tr>
-			<td></td>
-			<td>앨범 커버</td>
+		<tr align=center>
+			<td><input type = "radio" name="option" value = "option2"/></td>
+			<td><img src = "C:\Users\utdhk\eclipse-workspace\BasicJSP\WebContent\Workspace\img\b.jpg" height ="100px" width = "100px"></td>
 			<td>Eminem</td>
-			<td>Godzila</td>
-			<td>xxxx.xx.xx</td>
+			<td>Godzilla</td>
+			<td>2020.01.31</td>
 		</tr>
 	</table>
+
+	
 </body>
 </html>
