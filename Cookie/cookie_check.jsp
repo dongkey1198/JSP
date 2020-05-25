@@ -28,6 +28,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+		<a href = "cookie_check_all.jsp">모든 쿠키 확인하기~</a>
 </body>
 </html>
