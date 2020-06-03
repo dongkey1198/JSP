@@ -11,7 +11,7 @@ public class Scores {
 	private double average;
 	
 	public Scores() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Scores(int id, String name, int kor, int eng, int math, int total, double average) {
@@ -69,16 +69,16 @@ public class Scores {
 		return total;
 	}
 
-	public void setTotal(int total) {
-		this.total = total;
+	public void setTotal() {
+		this.total = this.kor+this.eng+this.math;
 	}
 
 	public double getAverage() {
 		return average;
 	}
 
-	public void setAverage(double average) {
-		this.average = average;
+	public void setAverage() {
+		this.average = this.total/3.0;
 	}
 	
 	
