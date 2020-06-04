@@ -68,7 +68,7 @@ public class ScoreDAO {
 		//시퀀스이름.NEXTVAL -> 시퀀스의 다음 숫자를 적용
 		//시퀀스이름.CURRVAL -> 시퀀스의 현재 숫자를 적용
 		
-		String sql = "INSERT INTO scores VALUES(id_seq.NEXTVAL,?,?,?,?,?,?)";
+		String sql = "INSERT INTO scores VALUES(id_seq.NEXTVAL,?,?,?,?,?)";
 		
 		try {
 			conn = getConnection();
@@ -186,5 +186,45 @@ public class ScoreDAO {
 		return flag;
 	}
 	
+	//이름검색 메소드
+	public List<Scores> search(String keyword){
+		
+		  List<Scores> scoreList = new ArrayList<>();
+	      String sql = "SELECT * FROM scores WHERE name LIKE ?";
+	      
+	      try {
+	         conn = getConnection();
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, keyword);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	            Scores score = new Scores(
+	                  rs.getInt("id"),
+	                  rs.getString("name"),
+	                  rs.getInt("kor"),
+	                  rs.getInt("eng"),
+	                  rs.getInt("math"),
+	                  rs.getInt("total"),
+	                  rs.getDouble("average")
+	                  );
+	            scoreList.add(score);
+	         }
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            if(rs != null) rs.close();
+	            if(pstmt != null) pstmt.close();
+	            if(conn != null) conn.close();
+	         } catch (Exception e2) {
+	            e2.printStackTrace();
+	         }
+	      }
+	      return scoreList;   
 
+		
+	}
 }

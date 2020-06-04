@@ -9,8 +9,6 @@
     <%
     
     	List<Scores> scoreList = ScoreDAO.getInstance().list();
-    
-    
     %>
     
     
