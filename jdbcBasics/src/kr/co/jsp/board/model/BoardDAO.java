@@ -8,19 +8,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import kr.co.jsp.scores.model.Scores;
 import sun.security.jca.GetInstance;
 
 public class BoardDAO implements IBoardDAO {
 	
+	DataSource ds;
+	
 	//싱글톤 패턴
 	private BoardDAO() {
+		//jsp에서 커넥션풀을 구하는 방법.(설정 파일이 InitialContext() 객체에 저장됨)
 		try {
+			InitialContext ct = new InitialContext();
+			ds = (DataSource) ct.lookup("java:comp/env/jdbc/myOracle");
 			
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
-		} catch (ClassNotFoundException e) {
-			
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -41,15 +48,15 @@ public class BoardDAO implements IBoardDAO {
 	ResultSet rs = null;
 	
 	
-	//connection 객체를  제공하는 메서드
-	private Connection getConnection() throws Exception {
-		
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String uid = "jsp";
-		String upw = "jsp";
-		
-		return DriverManager.getConnection(url,uid,upw);
-	}
+	/*
+	 * //connection 객체를 제공하는 메서드 private Connection getConnection() throws Exception
+	 * {
+	 * 
+	 * String url = "jdbc:oracle:thin:@localhost:1521:xe"; String uid = "jsp";
+	 * String upw = "jsp";
+	 * 
+	 * return DriverManager.getConnection(url,uid,upw); }
+	 */
 	
 	
 	
@@ -66,7 +73,7 @@ public class BoardDAO implements IBoardDAO {
 		
 		
 		try {
-			conn = getConnection();
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getWriter());
 			pstmt.setString(2, article.getTitle());
@@ -100,7 +107,7 @@ public class BoardDAO implements IBoardDAO {
 		String sql = "SELECT * FROM board ORDER BY board_id DESC";
 		
 		try {
-			conn = getConnection();
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -140,7 +147,7 @@ public class BoardDAO implements IBoardDAO {
 		String sql = "SELECT * FROM board WHERE board_id LIKE ?";
 		
 		try {
-			conn = getConnection();
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_Id);
 			
@@ -184,7 +191,7 @@ public class BoardDAO implements IBoardDAO {
 		
 		
 		try {
-			conn = getConnection();
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getWriter());
 			pstmt.setString(2, article.getTitle());
@@ -221,7 +228,7 @@ public class BoardDAO implements IBoardDAO {
 		String sql = "DELETE FROM board WHERE board_id = ?";
 		
 		try {
-			conn = getConnection();
+			conn = ds.getConnection();
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_Id);
