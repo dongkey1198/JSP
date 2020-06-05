@@ -135,7 +135,7 @@ public class BoardDAO implements IBoardDAO {
 	@Override
 	public Board selectOne(int board_Id) {
 		
-		Board article = new Board();
+		Board article = null;
 		
 		String sql = "SELECT * FROM board WHERE board_id LIKE ?";
 		
@@ -174,14 +174,78 @@ public class BoardDAO implements IBoardDAO {
 
 	@Override
 	public boolean update(Board article) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		boolean flag = false;
+		
+		String sql = "UPDATE board SET writer = ?, "
+					+ "title = ?, "
+					+ "content = ? "
+					+ "WHERE board_id = ? ";
+		
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, article.getWriter());
+			pstmt.setString(2, article.getTitle());
+			pstmt.setString(3, article.getContent());
+			pstmt.setInt(4, article.getBoard_Id());
+			
+			int rn = pstmt.executeUpdate();
+			
+			if(rn == 1) flag = true;
+			else flag = false;
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	finally {	
+			
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		}
+		
+		return flag;
 	}
 
 	@Override
 	public boolean delete(int board_Id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean flag  = false;
+		
+		String sql = "DELETE FROM board WHERE board_id = ?";
+		
+		try {
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_Id);
+			
+			int rn = pstmt.executeUpdate();
+			
+			if(rn == 1) flag = true;
+			else flag = false;
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) pstmt.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		
+		return flag;
 	}
 
 }

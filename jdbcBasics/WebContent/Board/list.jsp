@@ -42,7 +42,7 @@
 				<td>
 				<a href = "content.jsp?b_Id=<%=b.getBoard_Id()%>"><%= b.getTitle() %></a>
 				</td>
-				<td>[삭제]</td>
+				<td><a class="del-btn" href = "delete.jsp?bid=<%=b.getBoard_Id()%>">삭제</a></td>
 			</tr>
 		<%} %>
 		</tbody>

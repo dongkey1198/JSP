@@ -24,6 +24,6 @@
 		
 		</p>
 		<a href = "list.jsp">글 목록보기</a>
-		<a href = "modify.jsp">글 수정하기</a>
+		<a href = "modify.jsp?bid=<%=article.getBoard_Id()%>">글 수정하기</a>
 </body>
 </html>
